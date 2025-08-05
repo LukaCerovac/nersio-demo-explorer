@@ -23,7 +23,7 @@ export default function HomePage() {
     <main className="w-full max-w-[1600px] mx-auto h-screen flex gap-2 overflow-hidden pt-2 px-2 bg-neutral-200">
       <div className="flex-1 flex flex-col">
         <Header query={query} setQuery={setQuery} />
-        <div className="flex-1 w-full mx-auto overflow-y-auto p-4 bg-gray-50">
+        <div className="flex-1 w-full mx-auto overflow-y-auto p-4 bg-neutral-50">
           {isLoading && <p>Loading animals...</p>}
           {isError && <p>Failed to load animals.</p>}
           <AnimalGrid animals={filtered} onSelect={setSelectedAnimal} />
