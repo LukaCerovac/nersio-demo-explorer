@@ -4,7 +4,7 @@ import { useAnimals, Animal } from "@/hooks/useAnimals";
 import AnimalGrid from "@/components/AnimalGrid";
 import Header from "@/components/Header";
 import AnimalSidebar from "@/components/AnimalSidebar";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 
 export default function HomePage() {
   const { data: animals = [], isLoading, isError } = useAnimals();
@@ -18,18 +18,6 @@ export default function HomePage() {
         a.name.toLowerCase().includes(q) || a.species.toLowerCase().includes(q)
     );
   }, [animals, query]);
-
-  useEffect(() => {
-    const handler = (e: CustomEvent) => {
-      setSelectedAnimal(e.detail);
-    };
-
-    window.addEventListener("animal-select", handler as EventListener);
-
-    return () => {
-      window.removeEventListener("animal-select", handler as EventListener);
-    };
-  }, []);
 
   return (
     <main className="w-full max-w-[1600px] mx-auto h-screen flex gap-2 overflow-hidden pt-2 px-2 bg-neutral-200">
@@ -46,6 +34,7 @@ export default function HomePage() {
         <AnimalSidebar
           animal={selectedAnimal}
           onClose={() => setSelectedAnimal(null)}
+          onSelect={setSelectedAnimal}
         />
       )}
     </main>

@@ -10,15 +10,11 @@ import CloseIcon from "@/icons/CloseIcon";
 interface Props {
   animal: Animal;
   onClose: () => void;
+  onSelect: (animal: Animal) => void;
 }
 
-export default function AnimalSidebar({ animal, onClose }: Props) {
+export default function AnimalSidebar({ animal, onClose, onSelect }: Props) {
   const [view, setView] = useState<"prey" | "predators">("prey");
-
-  const onCloseThenSelect = (a: Animal) => {
-    onClose();
-    window.dispatchEvent(new CustomEvent("animal-select", { detail: a }));
-  };
 
   return (
     <aside className="w-[80%] sm:w-[60%] md:w-[320px] bg-white min-w-0 h-full md:flex flex-col absolute md:relative md:right-0 md:top-0 right-2 top-2 rounded-t-lg">
@@ -69,16 +65,10 @@ export default function AnimalSidebar({ animal, onClose }: Props) {
         </div>
 
         {view === "prey" && (
-          <PreyPredatorTabs
-            animalIds={animal.prey}
-            onSelect={onCloseThenSelect}
-          />
+          <PreyPredatorTabs animalIds={animal.prey} onSelect={onSelect} />
         )}
         {view === "predators" && (
-          <PreyPredatorTabs
-            animalIds={animal.predators}
-            onSelect={onCloseThenSelect}
-          />
+          <PreyPredatorTabs animalIds={animal.predators} onSelect={onSelect} />
         )}
       </div>
     </aside>
